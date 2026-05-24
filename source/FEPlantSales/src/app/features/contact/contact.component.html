@@ -1,0 +1,132 @@
+<!-- Breadcrumb -->
+<app-breadcrumb
+  title="Liên hệ"
+  [items]="[{ label: 'Liên hệ' }]"
+></app-breadcrumb>
+
+<!-- Contact Info Section -->
+<div class="contact-area-info section-padding-0-100">
+  <div class="container">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-12 col-md-6">
+        <div class="contact--thumbnail">
+          <img src="img/bg-img/25.jpg" alt="Liên hệ với chúng tôi">
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5">
+        <div class="section-heading">
+          <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
+          <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn tốt hơn.</p>
+        </div>
+        <div class="contact-information">
+          <p><span>Địa chỉ:</span> 123 Đường Cây Xanh, Quận 1, TP. HCM</p>
+          <p><span>Điện thoại:</span> 0123 456 789</p>
+          <p><span>Email:</span> bancaycanh&#64;gmail.com</p>
+          <p><span>Giờ mở cửa:</span> Thứ 2 - Chủ nhật: 8:00 - 21:00</p>
+          <p><span>Giờ ưu đãi:</span> Thứ 7: 14:00 - 16:00</p>
+        </div>
+
+        <div class="social-info mt-30">
+          <a href="#" aria-label="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Zalo"><i class="fa fa-phone" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Form + Map -->
+<section class="contact-area section-padding-0-100">
+  <div class="container">
+    <div class="row align-items-start justify-content-between">
+
+      <!-- Form -->
+      <div class="col-12 col-lg-5">
+        <div class="section-heading">
+          <h2>GỬI TIN NHẮN</h2>
+          <p>Gửi tin nhắn cho chúng tôi, chúng tôi sẽ phản hồi sớm nhất có thể</p>
+        </div>
+
+        <div *ngIf="submitted" class="alert-success-custom mb-30">
+          <i class="fa fa-check-circle" aria-hidden="true"></i>
+          Tin nhắn của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm.
+        </div>
+
+        <div class="contact-form-area mb-100">
+          <form (ngSubmit)="onSubmit()" #contactFormRef="ngForm">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Họ và tên *"
+                    [(ngModel)]="contactForm.name"
+                    name="name"
+                    required
+                  >
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email của bạn *"
+                    [(ngModel)]="contactForm.email"
+                    name="email"
+                    required
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Tiêu đề"
+                    [(ngModel)]="contactForm.subject"
+                    name="subject"
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <textarea
+                    class="form-control"
+                    rows="8"
+                    placeholder="Nội dung tin nhắn *"
+                    [(ngModel)]="contactForm.message"
+                    name="message"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn alazea-btn mt-15">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i> Gửi tin nhắn
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="col-12 col-lg-6">
+        <div class="map-area mb-100">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125469.83905729527!2d106.5650396!3d10.7915484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zVHAuIEhDTSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5o!5e0!3m2!1svi!2svn!4v1716540000000"
+            allowfullscreen
+            loading="lazy"
+            title="Bản đồ vị trí cửa hàng"
+          ></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

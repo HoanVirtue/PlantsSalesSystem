@@ -1,0 +1,367 @@
+<!-- Hero Area -->
+<section class="hero-area">
+  <div class="hero-post-slides">
+    <div
+      *ngFor="let slide of heroSlides; let i = index"
+      class="single-hero-post bg-overlay"
+      [class.active]="i === currentSlide"
+    >
+      <div class="slide-img bg-img" [style.backgroundImage]="'url(' + slide.image + ')'"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="hero-slides-content text-center">
+              <h2>{{ slide.title }}</h2>
+              <p>{{ slide.description }}</p>
+              <div class="welcome-btn-group">
+                <a [routerLink]="['/shop']" class="btn alazea-btn mr-30">XEM CỬA HÀNG</a>
+                <a [routerLink]="['/lien-he']" class="btn alazea-btn active">LIÊN HỆ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide dots -->
+  <div class="hero-slides-dots">
+    <button
+      *ngFor="let slide of heroSlides; let i = index"
+      class="dot-btn"
+      [class.active]="i === currentSlide"
+      (click)="goToSlide(i)"
+      [attr.aria-label]="'Chuyển đến slide ' + (i + 1)"
+      type="button"
+    ></button>
+  </div>
+</section>
+
+<!-- Services Area -->
+<section class="our-services-area bg-gray section-padding-100-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-heading text-center">
+          <h2>DỊCH VỤ CỦA CHÚNG TÔI</h2>
+          <p>Chúng tôi cung cấp dịch vụ hoàn hảo cho bạn.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-between">
+      <div class="col-12 col-lg-5">
+        <div class="alazea-service-area mb-100">
+          <div
+            *ngFor="let service of services"
+            class="single-service-area d-flex align-items-center"
+          >
+            <div class="service-icon mr-30">
+              <img [src]="service.icon" [alt]="service.title">
+            </div>
+            <div class="service-content">
+              <h5>{{ service.title }}</h5>
+              <p>{{ service.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="alazea-video-area bg-overlay mb-100">
+          <img src="img/bg-img/23.jpg" alt="Vườn cây cảnh">
+          <a href="https://www.youtube.com/watch?v=7HKoqNJtMTQ" class="video-icon" target="_blank" rel="noopener" aria-label="Xem video giới thiệu">
+            <i class="fa fa-play" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Area -->
+<section class="about-us-area section-padding-100-0">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-12 col-lg-5">
+        <div class="section-heading">
+          <h2>VỀ CHÚNG TÔI</h2>
+          <p>Chúng tôi dẫn đầu trong lĩnh vực cây cảnh và trang trí sân vườn.</p>
+        </div>
+        <p>Với hơn 10 năm kinh nghiệm, chúng tôi tự hào cung cấp những sản phẩm cây cảnh chất lượng cao, đa dạng chủng loại từ bonsai nghệ thuật đến cây phong thủy, cây văn phòng, phù hợp với mọi không gian và phong cách sống.</p>
+
+        <div class="alazea-progress-bar mb-50">
+          <div *ngFor="let bar of progressBars" class="single_progress_bar">
+            <p>{{ bar.label }}</p>
+            <div class="barfiller" [attr.aria-label]="bar.label + ': ' + bar.value + '%'">
+              <span class="tip">{{ bar.value }}%</span>
+              <span class="fill" [style.width]="isAnimated ? bar.value + '%' : '0%'"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="alazea-benefits-area">
+          <div class="row">
+            <div *ngFor="let benefit of benefits" class="col-12 col-sm-6">
+              <div class="single-benefits-area">
+                <img [src]="benefit.icon" [alt]="benefit.title">
+                <h5>{{ benefit.title }}</h5>
+                <p>{{ benefit.desc }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="border-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Portfolio Area -->
+<section class="alazea-portfolio-area section-padding-100-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-heading text-center">
+          <h2>BỘ SƯU TẬP</h2>
+          <p>Những tác phẩm cây cảnh tiêu biểu của chúng tôi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row alazea-portfolio">
+      <div
+        *ngFor="let item of portfolioItems; let i = index"
+        class="col-12 col-sm-6"
+        [class.col-lg-3]="i < 6"
+        [class.col-lg-6]="i === 6"
+      >
+        <div class="single_portfolio_item">
+          <div class="portfolio-thumbnail bg-img" [style.backgroundImage]="'url(' + item.image + ')'"></div>
+          <div class="portfolio-hover-overlay">
+            <a [routerLink]="['/shop']" class="portfolio-img d-flex align-items-center justify-content-center">
+              <div class="port-hover-text">
+                <h3>{{ item.title }}</h3>
+                <h5>{{ item.category }}</h5>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonial Area -->
+<section class="testimonial-area section-padding-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="testimonials-slides">
+          <div
+            *ngFor="let t of testimonials; let i = index"
+            class="single-testimonial-slide"
+            [class.active]="i === currentTestimonial"
+          >
+            <div class="row align-items-center">
+              <div class="col-12 col-md-6">
+                <div class="testimonial-thumb">
+                  <img [src]="t.image" [alt]="t.name">
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="testimonial-content">
+                  <div class="section-heading">
+                    <h2>KHÁCH HÀNG NÓI GÌ</h2>
+                    <p>Cảm nhận của khách hàng về Đức Hiểu Cây Cảnh</p>
+                  </div>
+                  <p>{{ t.quote }}</p>
+                  <div class="testimonial-author-info">
+                    <h6>{{ t.name }}</h6>
+                    <p>{{ t.role }}</p>
+                  </div>
+                  <div class="testimonial-dots">
+                    <button
+                      *ngFor="let dot of testimonials; let j = index"
+                      class="dot-btn"
+                      [class.active]="j === currentTestimonial"
+                      (click)="goToTestimonial(j)"
+                      [attr.aria-label]="'Xem đánh giá ' + (j + 1)"
+                      type="button"
+                    ></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- New Arrivals / Featured Products -->
+<section class="new-arrivals-products-area bg-gray section-padding-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-heading text-center">
+          <h2>SẢN PHẨM NỔI BẬT</h2>
+          <p>Những sản phẩm cây cảnh được yêu thích nhất tại cửa hàng</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div *ngFor="let plant of featuredPlants" class="col-12 col-sm-6 col-lg-3">
+        <app-plant-card [plant]="plant"></app-plant-card>
+      </div>
+
+      <!-- Placeholder khi chưa có data -->
+      <ng-container *ngIf="featuredPlants.length === 0">
+        <div *ngFor="let i of [1,2,3,4]" class="col-12 col-sm-6 col-lg-3">
+          <div class="single-product-area mb-50">
+            <div class="product-img" style="background:#f5f5f5; height:220px;"></div>
+            <div class="product-info mt-15 text-center">
+              <p>Đang tải...</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="col-12 text-center">
+        <a [routerLink]="['/shop']" class="btn alazea-btn">Xem tất cả</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Area -->
+<section class="alazea-blog-area section-padding-100-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-heading text-center">
+          <h2>TIN TỨC MỚI NHẤT</h2>
+          <p>Kiến thức và kinh nghiệm về cây cảnh và trang trí sân vườn</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div *ngFor="let post of blogPosts" class="col-12 col-md-6 col-lg-4">
+        <div class="single-blog-post mb-100">
+          <div class="post-thumbnail mb-30">
+            <a href="#"><img [src]="post.image" [alt]="post.title"></a>
+          </div>
+          <div class="post-content">
+            <a href="#" class="post-title">
+              <h5>{{ post.title }}</h5>
+            </a>
+            <div class="post-meta">
+              <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ post.date }}</a>
+              <a href="#"><i class="fa fa-user" aria-hidden="true"></i> {{ post.author }}</a>
+            </div>
+            <p class="post-excerpt">{{ post.excerpt }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Subscribe Newsletter -->
+<section class="subscribe-newsletter-area" style="background-image: url(img/bg-img/subscribe.png);">
+  <div class="container">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-12 col-lg-5">
+        <div class="section-heading mb-0">
+          <h2>Đăng ký nhận tin</h2>
+          <p>Đăng ký để nhận ưu đãi 10% cho đơn hàng đầu tiên của bạn</p>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="subscribe-form">
+          <form (ngSubmit)="onSubscribe()">
+            <input
+              type="email"
+              [(ngModel)]="subscribeEmail"
+              name="subscribeEmail"
+              placeholder="Nhập địa chỉ email của bạn"
+            >
+            <button type="submit" class="btn alazea-btn">ĐĂNG KÝ</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subscribe-side-thumb">
+    <img class="first-img" src="img/core-img/leaf.png" alt="">
+  </div>
+</section>
+
+<!-- Contact Quick Section -->
+<section class="contact-area section-padding-100-0">
+  <div class="container">
+    <div class="row align-items-center justify-content-between">
+      <div class="col-12 col-lg-5">
+        <div class="section-heading">
+          <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
+          <p>Gửi tin nhắn cho chúng tôi, chúng tôi sẽ phản hồi sớm nhất</p>
+        </div>
+        <div class="contact-form-area mb-100">
+          <form>
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Họ và tên">
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <input type="email" class="form-control" placeholder="Email của bạn">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Tiêu đề">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <textarea class="form-control" rows="6" placeholder="Nội dung tin nhắn"></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn alazea-btn mt-15">Gửi tin nhắn</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="map-area mb-100">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125469.83905729527!2d106.5650396!3d10.7915484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zVHAuIEhDTSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5o!5e0!3m2!1svi!2svn!4v1716540000000"
+            allowfullscreen
+            loading="lazy"
+            title="Bản đồ vị trí cửa hàng"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

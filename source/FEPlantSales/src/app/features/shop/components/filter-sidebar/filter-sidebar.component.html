@@ -1,0 +1,66 @@
+<div class="shop-sidebar-area">
+  <!-- Price Range Input -->
+  <div class="shop-widget price mb-50">
+    <h4 class="widget-title">Khoảng giá</h4>
+    <div class="widget-desc">
+      <div class="d-flex align-items-center" style="gap: 8px;">
+        <input type="number" class="form-control form-control-sm" placeholder="Từ"
+               [(ngModel)]="minPrice" (input)="onPriceInput()" min="0" name="minPrice">
+        <span>–</span>
+        <input type="number" class="form-control form-control-sm" placeholder="Đến"
+               [(ngModel)]="maxPrice" (input)="onPriceInput()" min="0" name="maxPrice">
+      </div>
+      <small class="text-muted">Đơn vị: VNĐ</small>
+    </div>
+  </div>
+
+  <!-- Tree Styles (Dáng cây) -->
+  <div class="shop-widget catagory mb-50">
+    <h4 class="widget-title">Dáng cây</h4>
+    <div class="widget-desc">
+      <div *ngFor="let style of treeStyles$ | async"
+           class="custom-control custom-checkbox d-flex align-items-center mb-2">
+        <input type="checkbox" class="custom-control-input" [id]="'ts-'+style.id"
+               [checked]="isSelected('treeStyleIds', style.id)"
+               (change)="toggle('treeStyleIds', style.id)">
+        <label class="custom-control-label" [for]="'ts-'+style.id">
+          {{ style.name }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pot Shapes -->
+  <div class="shop-widget sort-by mb-50">
+    <h4 class="widget-title">Mẫu chậu</h4>
+    <div class="widget-desc">
+      <div *ngFor="let shape of potShapes$ | async"
+           class="custom-control custom-checkbox d-flex align-items-center mb-2">
+        <input type="checkbox" class="custom-control-input" [id]="'ps-'+shape.id"
+               [checked]="isSelected('potShapeIds', shape.id)"
+               (change)="toggle('potShapeIds', shape.id)">
+        <label class="custom-control-label" [for]="'ps-'+shape.id">
+          {{ shape.name }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pot Sizes -->
+  <div class="shop-widget sort-by mb-50">
+    <h4 class="widget-title">Kích thước chậu</h4>
+    <div class="widget-desc">
+      <div *ngFor="let size of potSizes$ | async"
+           class="custom-control custom-checkbox d-flex align-items-center mb-2">
+        <input type="checkbox" class="custom-control-input" [id]="'psz-'+size.id"
+               [checked]="isSelected('potSizeIds', size.id)"
+               (change)="toggle('potSizeIds', size.id)">
+        <label class="custom-control-label" [for]="'psz-'+size.id">
+          {{ size.sizeCm }}cm
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn alazea-btn w-100" (click)="clearFilters()">Xóa bộ lọc</button>
+</div>

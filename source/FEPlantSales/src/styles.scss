@@ -1,0 +1,7 @@
+/* Global styles for Angular FE */
+
+/* Fix router links to be clickable */
+a[routerLink] { cursor: pointer; }
+
+/* Hide preloader */
+.preloader { display: none !important; }

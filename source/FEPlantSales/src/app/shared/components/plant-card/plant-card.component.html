@@ -1,0 +1,47 @@
+<div class="single-product-area mb-50">
+  <div class="product-img">
+    <a [routerLink]="['/cay-canh', plant.slug]">
+      <img
+        [src]="plant.thumbnailUrl || 'img/bg-img/40.png'"
+        [alt]="plant.name"
+      />
+    </a>
+
+    <!-- Tag góc trái: Đã bán -->
+    <div class="product-tag sale-tag" *ngIf="plant.status === 'Sold'">
+      <span>Đã bán</span>
+    </div>
+
+    <!-- Tag góc phải: Nổi bật -->
+    <div
+      class="product-tag product-tag--right"
+      *ngIf="plant.isFeatured && plant.status !== 'Sold'"
+    >
+      <span>Nổi bật</span>
+    </div>
+
+    <!-- <div class="product-meta d-flex">
+      <a href="javascript:void(0)" class="wishlist-btn"
+        ><i class="icon_heart_alt"></i
+      ></a>
+      <a [routerLink]="['/cay-canh', plant.slug]" class="add-to-cart-btn"
+        >Xem chi tiết</a
+      >
+      <a href="javascript:void(0)" class="compare-btn"
+        ><i class="arrow_left-right_alt"></i
+      ></a>
+    </div> -->
+  </div>
+  <div class="product-info mt-15 text-center">
+    <p style="margin-bottom: 0">
+      <a [routerLink]="['/cay-canh', plant.slug]">{{
+        plant.code ? plant.code + " - " + plant.name : plant.name
+      }}</a>
+    </p>
+    <small
+      >{{ plant.treeStyleName || "Bonsai" }} · Chậu
+      {{ plant.potSizeCm || 0 }}cm</small
+    >
+    <h6>{{ plant.displayPrice || (plant.actualPrice || 0 | currencyVnd) }}</h6>
+  </div>
+</div>

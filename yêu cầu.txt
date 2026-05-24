@@ -1,0 +1,24 @@
+web bán cây cảnh
+- tìm kiếm cây cảnh
+- chức năng mua cây(chỉ đặt cọc, quản trị cửa hàng sẽ vào update trạng thái bán của cây)
+khi khách hàng mua cây ấn vào mua hàng sẽ yêu cầu nhập thông tin tên, số điện thoại, email(optional) và gửi thông báo cho chủ cửa hàng qua telegram
+có lưu thông tin khách hàng để quản trị sau có thể tìm kiếm khách hàng, phân loại khách hàng nếu có
+có trang thông tin chi tiết cây cảnh
+- chatbot tư vấn người mua về cây cảnh
+
+
+Danh mục:
+1: Dáng cây ( cây bàn trà + cây trực+ cây tán rộng )
+2: Khoảng Giá ( 15-25tr. 25-30tr…)
+3: Mẫu chậu ( tròn, vuông, chữ nhật…)
+4: Kích thước chậu( 80, 100,120,150)
+
+Thông tin cây:
+Kích thước chậu, tán rộng, tán cao. Số lượng quả.
+vanh gốc, mẫu chậu, dáng cây, giá(khoảng giá)
+
+
+công nghệ: asp.net core api, angular, mysql, minio, elasticsearch(optional)
+
+
+

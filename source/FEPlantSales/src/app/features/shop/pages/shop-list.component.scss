@@ -1,0 +1,34 @@
+.shop-sorting-data .search_by_terms select {
+  margin-left: 0;
+}
+
+.shop-results-wrapper {
+  position: relative;
+  min-height: 200px;
+
+  &.is-loading {
+    pointer-events: none;
+
+    app-plant-grid,
+    app-shop-pagination {
+      opacity: 0.4;
+      transition: opacity 0.2s ease;
+    }
+  }
+}
+
+.shop-loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+
+  .spinner-border {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

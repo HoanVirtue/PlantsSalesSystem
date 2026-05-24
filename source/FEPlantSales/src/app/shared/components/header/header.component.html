@@ -1,0 +1,73 @@
+<header class="header-area">
+  <!-- Top bar -->
+  <div class="top-header-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="top-header-content d-flex align-items-center justify-content-between">
+            <div class="top-header-meta">
+              <a href="#"><i class="fa fa-envelope-o"></i> <span>bancaycanh@gmail.com</span></a>
+              <a href="#"><i class="fa fa-phone"></i> <span>0123 456 789</span></a>
+            </div>
+            <div class="top-header-meta d-flex">
+              <div class="cart"><a [routerLink]="['/shop']"><i class="fa fa-shopping-cart"></i> <span>Cửa hàng</span></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main navbar -->
+  <div class="alazea-main-menu" [class.is-sticky]="isSticky">
+    <div class="classy-nav-container breakpoint-off">
+      <div class="container">
+        <nav class="classy-navbar justify-content-between" id="alazeaNav">
+
+          <!-- Nav Brand -->
+          <a [routerLink]="['/']" class="nav-brand">
+            <img src="img/core-img/logo.png" alt="Logo">
+          </a>
+
+          <!-- Navbar Toggler -->
+          <button class="classy-navbar-toggler" (click)="toggleMenu()" aria-label="Toggle menu" type="button">
+            <span class="navbarToggler"><span></span><span></span><span></span></span>
+          </button>
+
+          <!-- Menu -->
+          <div class="classy-menu" [class.menu-on]="menuOpen">
+
+            <!-- Close Button -->
+            <button class="classycloseIcon" (click)="toggleMenu()" aria-label="Close menu" type="button">
+              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </button>
+
+            <!-- Navbar Start -->
+            <div class="classynav">
+              <ul>
+                <li><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Trang chủ</a></li>
+                <li><a [routerLink]="['/shop']" routerLinkActive="active">Cửa hàng</a></li>
+                <li><a [routerLink]="['/lien-he']" routerLinkActive="active">Liên hệ</a></li>
+              </ul>
+
+              <!-- Search Icon -->
+              <button id="searchIcon" (click)="toggleSearch()" aria-label="Toggle search" type="button">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </div>
+            <!-- Navbar End -->
+          </div>
+        </nav>
+
+        <!-- Search Form -->
+        <div class="search-form" [class.search-open]="searchOpen">
+          <form (ngSubmit)="onSearch()">
+            <input type="search" [(ngModel)]="searchKeyword" name="keyword" placeholder="Tìm kiếm cây cảnh...">
+            <button type="submit" class="d-none"></button>
+          </form>
+          <button class="closeIcon" (click)="toggleSearch()" aria-label="Close search" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

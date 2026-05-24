@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"D:\\\\MYDRIVE\\\\lachong\\\\nail-booking\\\\bookingservice\\\\src\\\\BookingService.Infrastructure\\\\Data\\\\\" 2>&1 | head -20)",
+      "Read(//d/MYDRIVE/lachong/nail-booking/bookingservice/src/BookingService.Infrastructure/**)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "PowerShell(Get-Process node -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Force -ErrorAction SilentlyContinue)"
+    ]
+  },
+  "enabledPlugins": {
+    "fullstack-dev-skills@fullstack-dev-skills": true
+  }
+}

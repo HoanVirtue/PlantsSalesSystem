@@ -1,0 +1,95 @@
+<app-breadcrumb [items]="breadcrumbs" title="Cửa hàng"></app-breadcrumb>
+
+<section class="shop-page section-padding-0-100">
+  <div class="container">
+    <!-- Sorting bar -->
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between mb-30"
+        >
+          <div class="shop-page-count">
+            <p>
+              Tìm thấy <strong>{{ (result$ | async)?.total || 0 }}</strong> cây cảnh
+            </p>
+          </div>
+          <div class="search_by_terms">
+            <form class="form-inline d-flex flex-wrap" style="gap: 8px">
+              <!-- Search -->
+              <input
+                type="search"
+                class="form-control"
+                placeholder="Tìm kiếm..."
+                [(ngModel)]="keyword"
+                (input)="onKeywordChange()"
+                name="keyword"
+                style="width: 240px"
+              />
+
+              <!-- Sort -->
+              <select
+                class="custom-select widget-title"
+                [(ngModel)]="sortBy"
+                (change)="onSortChange()"
+                name="sortBy"
+              >
+                <option *ngFor="let opt of sortOptions" [value]="opt.value">
+                  {{ opt.label }}
+                </option>
+              </select>
+
+              <!-- Page size -->
+              <select
+                class="custom-select widget-title"
+                [(ngModel)]="pageSize"
+                (change)="onPageSizeChange()"
+                name="pageSize"
+              >
+                <option *ngFor="let size of pageSizeOptions" [value]="size">
+                  Hiện: {{ size }}
+                </option>
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar + Grid -->
+    <div class="row">
+      <div class="col-12 col-md-4 col-lg-3">
+        <app-filter-sidebar
+          (filtersChanged)="onFiltersChanged($event)"
+        ></app-filter-sidebar>
+      </div>
+      <div class="col-12 col-md-8 col-lg-9">
+        <div class="shop-products-area">
+          <div class="shop-results-wrapper" [class.is-loading]="loading$ | async">
+            <div class="shop-loading-overlay" *ngIf="loading$ | async">
+              <output aria-live="polite" aria-label="Đang tải...">
+                <div class="spinner-border text-success"></div>
+              </output>
+            </div>
+
+            <ng-container *ngIf="result$ | async as result">
+              <div *ngIf="result.data?.length; else noData">
+                <app-plant-grid [plants]="result.data"></app-plant-grid>
+              </div>
+              <ng-template #noData>
+                <div *ngIf="!(loading$ | async)" class="text-center py-5">
+                  <p>Không tìm thấy cây cảnh nào.</p>
+                </div>
+              </ng-template>
+              <app-shop-pagination
+                [total]="result.total ?? 0"
+                [page]="currentPage"
+                [pageSize]="pageSize"
+                (pageChanged)="onPageChanged($event)"
+              ></app-shop-pagination>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

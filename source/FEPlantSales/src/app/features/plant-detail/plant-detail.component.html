@@ -1,0 +1,288 @@
+<app-breadcrumb [items]="breadcrumbs" title="Chi tiết sản phẩm"></app-breadcrumb>
+
+<ng-container *ngIf="plant; else notFound">
+
+  <!-- ##### Single Product Details Area ##### -->
+  <section class="single_product_details_area mb-50">
+
+    <!-- Main info row -->
+    <div class="produts-details--content mb-50">
+      <div class="container">
+        <div class="row justify-content-between">
+
+          <!-- Left: Image Gallery -->
+          <div class="col-12 col-md-6 col-lg-5">
+            <div class="single_product_thumb">
+              <div class="carousel slide">
+
+                <!-- Main slides -->
+                <div class="carousel-inner">
+                  <div *ngFor="let img of allImages; let i = index"
+                       class="carousel-item"
+                       [class.active]="i === activeImageIndex">
+                    <button type="button" class="gallery-main-btn" (click)="openLightbox(i)" aria-label="Phóng to ảnh">
+                      <img class="d-block w-100 gallery-main-img" [src]="img" [alt]="plant.name">
+                    </button>
+                  </div>
+                  <div class="carousel-item active" *ngIf="allImages.length === 0">
+                    <img class="d-block w-100" src="img/bg-img/49.jpg" [alt]="plant.name">
+                  </div>
+                </div>
+
+                <!-- Prev / Next -->
+                <button class="carousel-control-prev" type="button"
+                        (click)="prevImage()" *ngIf="allImages.length > 1" aria-label="Ảnh trước">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button"
+                        (click)="nextImage()" *ngIf="allImages.length > 1" aria-label="Ảnh sau">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+
+                <!-- Indicators (thumbnail background) -->
+                <div class="carousel-indicators" *ngIf="allImages.length > 1">
+                  <button *ngFor="let img of allImages; let i = index"
+                          type="button"
+                          [class.active]="i === activeImageIndex"
+                          [style.background-image]="'url(' + img + ')'"
+                          (click)="setActiveImage(i)"
+                          [attr.aria-label]="'Ảnh ' + (i + 1)">
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Product Info -->
+          <div class="col-12 col-md-6">
+            <div class="single_product_desc">
+
+              <!-- Name -->
+              <h4 class="title">
+                {{ plant.code ? plant.code + ' - ' + plant.name : plant.name }}
+              </h4>
+
+              <!-- Price -->
+              <h4 class="price">
+                {{ plant.displayPrice || ((plant.actualPrice || 0) | currencyVnd) }}
+              </h4>
+
+              <!-- Short description -->
+              <div class="short_overview" *ngIf="plant.shortDescription">
+                <p>{{ plant.shortDescription }}</p>
+              </div>
+
+              <!-- Cart area -->
+              <div class="cart--area d-flex flex-wrap align-items-center mt-30 mb-30">
+                <!-- <div class="qty-control">
+                  <button class="qty-btn" type="button" (click)="decreaseQty()" aria-label="Giảm">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <input class="qty-input" type="number" [(ngModel)]="quantity" min="1" readonly>
+                  <button class="qty-btn" type="button" (click)="increaseQty()" aria-label="Tăng">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div> -->
+                <button class="btn alazea-btn ml-15" type="button">Liên hệ mua</button>
+                <div class="wishlist-compare d-flex align-items-center ml-15">
+                  <a href="javascript:void(0)" class="wishlist-btn"><i class="icon_heart_alt"></i></a>
+                </div>
+              </div>
+
+              <!-- Meta -->
+              <div class="products--meta">
+                <p *ngIf="plant.code">
+                  <span>Mã:</span>
+                  <span>{{ plant.code }}</span>
+                </p>
+                <p *ngIf="plant.treeStyleName">
+                  <span>Dáng cây:</span>
+                  <span>{{ plant.treeStyleName }}</span>
+                </p>
+                <p *ngIf="plant.potShapeName">
+                  <span>Mẫu chậu:</span>
+                  <span>{{ plant.potShapeName }}</span>
+                </p>
+                <p *ngIf="plant.potSizeCm">
+                  <span>Kích thước:</span>
+                  <span>Chậu {{ plant.potSizeCm }}cm</span>
+                </p>
+                <p *ngIf="plant.canopyWidth">
+                  <span>Tán rộng:</span>
+                  <span>{{ plant.canopyWidth }}cm</span>
+                </p>
+                <p *ngIf="plant.canopyHeight">
+                  <span>Chiều cao:</span>
+                  <span>{{ plant.canopyHeight }}cm</span>
+                </p>
+                <p *ngIf="plant.trunkCircumference">
+                  <span>Chu vi thân:</span>
+                  <span>{{ plant.trunkCircumference }}cm</span>
+                </p>
+                <p *ngIf="plant.fruitCount">
+                  <span>Số trái:</span>
+                  <span>{{ plant.fruitCount }}</span>
+                </p>
+                <p>
+                  <span>Trạng thái:</span>
+                  <span [class.text-danger]="plant.status === 'Sold'">
+                    {{ plant.status === 'Sold' ? 'Đã bán' : 'Còn hàng' }}
+                  </span>
+                </p>
+                <p>
+                  <span>Chia sẻ:</span>
+                  <span>
+                    <a href="javascript:void(0)" class="ml-1"><i class="fa fa-facebook"></i></a>
+                    <a href="javascript:void(0)" class="ml-1"><i class="fa fa-twitter"></i></a>
+                    <a href="javascript:void(0)" class="ml-1"><i class="fa fa-pinterest"></i></a>
+                  </span>
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="product_details_tab clearfix">
+
+            <!-- Tab nav -->
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="activeTab === 'description'"
+                   (click)="setActiveTab('description')" href="javascript:void(0)">
+                  Mô tả
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="activeTab === 'info'"
+                   (click)="setActiveTab('info')" href="javascript:void(0)">
+                  Thông tin thêm
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="activeTab === 'care'"
+                   (click)="setActiveTab('care')" href="javascript:void(0)">
+                  Chăm sóc
+                </a>
+              </li>
+            </ul>
+
+            <!-- Tab content -->
+            <div class="tab-content">
+
+              <!-- Description -->
+              <div class="tab-pane" [class.show]="activeTab === 'description'" [class.active]="activeTab === 'description'">
+                <div class="description_area">
+                  <p *ngIf="plant.description; else noDesc">{{ plant.description }}</p>
+                  <ng-template #noDesc><p class="text-muted">Chưa có mô tả.</p></ng-template>
+                </div>
+              </div>
+
+              <!-- Additional Info -->
+              <div class="tab-pane" [class.show]="activeTab === 'info'" [class.active]="activeTab === 'info'">
+                <div class="additional_info_area">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr *ngIf="plant.code">
+                        <th style="width:180px">Mã sản phẩm</th>
+                        <td>{{ plant.code }}</td>
+                      </tr>
+                      <tr *ngIf="plant.treeStyleName">
+                        <th>Dáng cây</th>
+                        <td>{{ plant.treeStyleName }}</td>
+                      </tr>
+                      <tr *ngIf="plant.potShapeName">
+                        <th>Mẫu chậu</th>
+                        <td>{{ plant.potShapeName }}</td>
+                      </tr>
+                      <tr *ngIf="plant.potSizeCm">
+                        <th>Kích thước chậu</th>
+                        <td>{{ plant.potSizeCm }}cm</td>
+                      </tr>
+                      <tr *ngIf="plant.canopyWidth">
+                        <th>Tán rộng</th>
+                        <td>{{ plant.canopyWidth }}cm</td>
+                      </tr>
+                      <tr *ngIf="plant.canopyHeight">
+                        <th>Chiều cao tán</th>
+                        <td>{{ plant.canopyHeight }}cm</td>
+                      </tr>
+                      <tr *ngIf="plant.trunkCircumference">
+                        <th>Chu vi thân</th>
+                        <td>{{ plant.trunkCircumference }}cm</td>
+                      </tr>
+                      <tr *ngIf="plant.fruitCount">
+                        <th>Số trái</th>
+                        <td>{{ plant.fruitCount }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Care Instructions -->
+              <div class="tab-pane" [class.show]="activeTab === 'care'" [class.active]="activeTab === 'care'">
+                <div class="description_area">
+                  <p *ngIf="plant.careInstruction; else noCare" style="white-space: pre-line;">{{ plant.careInstruction }}</p>
+                  <ng-template #noCare><p class="text-muted">Chưa có hướng dẫn chăm sóc.</p></ng-template>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ##### Related Products ##### -->
+  <div class="related-products-area" *ngIf="relatedPlants.length > 0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-heading text-center">
+            <h2>Sản phẩm liên quan</h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-3 mb-100" *ngFor="let related of relatedPlants">
+          <app-plant-card [plant]="related"></app-plant-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox-overlay" *ngIf="lightboxOpen" (click)="closeLightbox()" (keydown.escape)="closeLightbox()">
+    <div class="lightbox-content" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+      <button type="button" class="lightbox-close" (click)="closeLightbox()" aria-label="Đóng">
+        <i class="fa fa-times"></i>
+      </button>
+      <button type="button" class="lightbox-prev" (click)="prevImage()" *ngIf="allImages.length > 1" aria-label="Ảnh trước">
+        <i class="fa fa-angle-left"></i>
+      </button>
+      <img [src]="activeImage" [alt]="plant?.name" class="lightbox-img">
+      <button type="button" class="lightbox-next" (click)="nextImage()" *ngIf="allImages.length > 1" aria-label="Ảnh sau">
+        <i class="fa fa-angle-right"></i>
+      </button>
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-template #notFound>
+  <div class="container text-center py-5">
+    <p>Không tìm thấy sản phẩm.</p>
+    <a [routerLink]="['/shop']" class="btn alazea-btn">Quay lại cửa hàng</a>
+  </div>
+</ng-template>

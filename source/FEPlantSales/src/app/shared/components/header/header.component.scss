@@ -1,0 +1,59 @@
+.classy-navbar-toggler,
+.classycloseIcon,
+#searchIcon,
+.closeIcon {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.search-form {
+  display: none;
+
+  &.search-open {
+    display: block;
+  }
+}
+
+.classy-menu {
+  display: flex;
+
+  @media (max-width: 991px) {
+    display: none;
+
+    &.menu-on {
+      display: block;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      z-index: 999;
+      padding: 15px;
+    }
+  }
+}
+
+// Sticky navbar
+.alazea-main-menu.is-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  background-color: #111111;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  animation: stickySlideDown 0.3s ease forwards;
+}
+
+@keyframes stickySlideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

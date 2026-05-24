@@ -1,0 +1,5 @@
+<form (ngSubmit)="onSearch()" class="d-flex">
+  <input type="text" class="form-control" placeholder="Search plants..."
+         [(ngModel)]="searchKeyword" name="keyword">
+  <button type="submit" class="btn btn-primary ms-2">Search</button>
+</form>

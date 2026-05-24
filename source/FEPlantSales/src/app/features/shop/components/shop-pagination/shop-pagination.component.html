@@ -1,0 +1,33 @@
+<nav aria-label="Page navigation" *ngIf="totalPages > 1" class="mt-50 mb-50">
+  <ul class="pagination justify-content-center">
+    <!-- Previous -->
+    <li class="page-item" [class.disabled]="page === 1">
+      <button class="page-link" (click)="onPageChange(page - 1)" [disabled]="page === 1" aria-label="Previous">
+        <i class="fa fa-angle-left"></i>
+      </button>
+    </li>
+
+    <!-- Ellipsis đầu -->
+    <li class="page-item disabled" *ngIf="pageNumbers[0] > 1">
+      <span class="page-link">...</span>
+    </li>
+
+    <!-- Số trang -->
+    <li class="page-item" *ngFor="let p of pageNumbers" [class.active]="p === page">
+      <button class="page-link" (click)="onPageChange(p)">{{ p }}</button>
+    </li>
+
+    <!-- Ellipsis cuối -->
+    <li class="page-item disabled" *ngIf="pageNumbers[pageNumbers.length - 1] < totalPages">
+      <span class="page-link">...</span>
+    </li>
+
+    <!-- Next -->
+    <li class="page-item" [class.disabled]="page === totalPages">
+      <button class="page-link" (click)="onPageChange(page + 1)" [disabled]="page === totalPages" aria-label="Next">
+        <i class="fa fa-angle-right"></i>
+      </button>
+    </li>
+  </ul>
+  <p class="text-center text-muted mt-2" style="font-size: 13px;">Trang {{ page }} / {{ totalPages }}</p>
+</nav>

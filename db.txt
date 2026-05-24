@@ -1,0 +1,265 @@
+CREATE TABLE Users (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    Username VARCHAR(100) NOT NULL,
+    PasswordHash TEXT NOT NULL,
+
+    FullName VARCHAR(255),
+
+    PhoneNumber VARCHAR(30),
+
+    Email VARCHAR(255),
+
+    AvatarUrl VARCHAR(512),
+
+    IsActive BOOLEAN DEFAULT TRUE,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt DATETIME NULL
+);
+
+CREATE TABLE TreeStyles (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    Name VARCHAR(255) NOT NULL,
+
+    Slug VARCHAR(255),
+
+    Description TEXT,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE PotShapes (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    Name VARCHAR(255) NOT NULL,
+
+    Description TEXT,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE PotSizes (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    SizeCm INT NOT NULL,
+
+    Description TEXT,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE BonsaiTrees (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    Code VARCHAR(50),
+
+    Name VARCHAR(255) NOT NULL,
+
+    Slug VARCHAR(255),
+
+    Description LONGTEXT,
+
+    ShortDescription TEXT,
+
+    ThumbnailUrl TEXT,
+
+    -- Giá nhập nội bộ
+    ImportPrice DECIMAL(18,2),
+
+    -- Giá bán thực tế
+    ActualPrice DECIMAL(18,2),
+
+    -- Giá hiển thị cho khách
+    DisplayPrice VARCHAR(100),
+
+    TreeStyleId BIGINT,
+
+    PotShapeId BIGINT,
+
+    PotSizeId BIGINT,
+
+    TrunkCircumference DECIMAL(10,2),
+
+    CanopyWidth DECIMAL(10,2),
+
+    CanopyHeight DECIMAL(10,2),
+
+    FruitCount INT,
+
+    CareInstruction TEXT,
+
+    ViewCount BIGINT DEFAULT 0,
+
+    IsFeatured BOOLEAN DEFAULT FALSE,
+
+    IsSold BOOLEAN DEFAULT FALSE,
+
+    IsDeleted BOOLEAN DEFAULT FALSE,
+
+    Status VARCHAR(50), (AVAILABLE
+RESERVED
+DEPOSITED
+SOLD
+HIDDEN)
+
+    PublishedAt DATETIME NULL,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    UpdatedAt DATETIME NULL,
+
+    FOREIGN KEY (TreeStyleId) REFERENCES TreeStyles(Id),
+
+    FOREIGN KEY (PotShapeId) REFERENCES PotShapes(Id),
+
+    FOREIGN KEY (PotSizeId) REFERENCES PotSizes(Id)
+);
+
+CREATE TABLE BonsaiImages (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    BonsaiTreeId BIGINT NOT NULL,
+
+    ImageUrl TEXT NOT NULL,
+
+    IsThumbnail BOOLEAN DEFAULT FALSE,
+
+    SortOrder INT DEFAULT 0,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (BonsaiTreeId) REFERENCES BonsaiTrees(Id)
+);
+
+CREATE TABLE Customers (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    FullName VARCHAR(255) NOT NULL,
+
+    PhoneNumber VARCHAR(30) NOT NULL,
+
+    Email VARCHAR(255),
+
+    Note TEXT,
+
+    CustomerType VARCHAR(50), (NEW
+POTENTIAL
+VIP
+BOUGHT
+SPAM)
+
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    UpdatedAt DATETIME NULL
+);
+
+CREATE TABLE Orders (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    OrderCode VARCHAR(50),
+
+    BonsaiTreeId BIGINT NOT NULL,
+
+    CustomerId BIGINT NOT NULL,
+
+    TotalAmount DECIMAL(18,2) NOT NULL,
+
+    PaidAmount DECIMAL(18,2) DEFAULT 0,
+
+    RemainingAmount DECIMAL(18,2) DEFAULT 0,
+
+    Status VARCHAR(50),
+
+    CompletedAt DATETIME NULL,
+
+    CreatedBy BIGINT NOT NULL,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    UpdatedAt DATETIME NULL,
+
+    FOREIGN KEY (PurchaseRequestId)
+        REFERENCES PurchaseRequests(Id),
+
+    FOREIGN KEY (BonsaiTreeId)
+        REFERENCES BonsaiTrees(Id),
+
+    FOREIGN KEY (CustomerId)
+        REFERENCES Customers(Id),
+
+    FOREIGN KEY (CreatedBy)
+        REFERENCES Users(Id)
+);
+
+CREATE TABLE OrderPayments (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    OrderId BIGINT NOT NULL,
+
+    Amount DECIMAL(18,2) NOT NULL,
+
+    PaymentDate DATETIME NOT NULL,
+
+    CreatedBy BIGINT NOT NULL,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (OrderId)
+        REFERENCES Orders(Id),
+
+    FOREIGN KEY (CreatedBy)
+        REFERENCES Users(Id)
+);
+
+CREATE TABLE OrderStatusHistories (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    OrderId BIGINT NOT NULL,
+
+    OldStatus VARCHAR(50),
+
+    NewStatus VARCHAR(50),
+
+    ChangedBy BIGINT,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (OrderId)
+        REFERENCES Orders(Id),
+
+    FOREIGN KEY (ChangedBy)
+        REFERENCES Users(Id)
+);
+
+CREATE TABLE TelegramNotificationLogs (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    DepositOrderId BIGINT,
+
+    MessageContent TEXT,
+
+    IsSuccess BOOLEAN,
+
+    Response TEXT,
+
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (DepositOrderId) REFERENCES DepositOrders(Id)
+);
+
+CREATE TABLE ChatConversations (
+    Id BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    CustomerId BIGINT NULL,
+
+    SessionId VARCHAR(255),
+
+    StartedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    EndedAt DATETIME NULL,
+
+    FOREIGN KEY (CustomerId) REFERENCES Customers(Id)
+);
